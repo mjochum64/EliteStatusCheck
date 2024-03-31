@@ -1,10 +1,10 @@
-from fastapi import FastAPI
-from status_module import router as status_router
-from cargo_module import router as cargo_router
-from threading import Thread
 import time
 import json
 import os
+from threading import Thread
+from fastapi import FastAPI
+from status_module import router as status_router
+from cargo_module import router as cargo_router
 
 app = FastAPI(title="Mein FastAPI-Projekt")
 

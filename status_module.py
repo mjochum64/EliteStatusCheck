@@ -1,29 +1,62 @@
 from fastapi import APIRouter
 import os
 import json
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+import threading
 
 router = APIRouter()
 
-# Einfacher Cache als globales Dictionary
+# Globale Variable für den Cache
 cache = {}
 
 def get_status_data():
-    global cache
+    """Gibt die gecachten Statusdaten zurück."""
+    return cache.get("status_data", {})
+
+def update_status_data():
+    """Aktualisiert die Daten im Cache."""
     status_file_path = os.path.join(os.environ['USERPROFILE'], 'Saved Games', 'Frontier Developments', 'Elite Dangerous', 'Status.json')
-    
-    # Überprüfe, ob die Daten bereits im Cache sind und gib diese zurück, falls ja
-    if cache.get("status_data"):
-        return cache["status_data"]
-    
-    with open(status_file_path, "r") as file:
-        data = json.load(file)
-        
-    # Speichere die gelesenen Daten im Cache
-    cache["status_data"] = data
-    return data
+    global cache
+    try:
+        with open(status_file_path, "r") as file:
+            # Überprüfe, ob die Datei leer ist
+            content = file.read()
+            if not content:
+                print("Die Datei ist leer. Überspringe das Update.")
+                return
+            data = json.loads(content)
+            cache["status_data"] = data
+    except json.JSONDecodeError as e:
+        print(f"Fehler beim Parsen der JSON-Daten: {e}")
+    except Exception as e:
+        print(f"Unbekannter Fehler beim Aktualisieren des Caches: {e}")
 
 def check_flag(flags, bit):
+    """Überprüft, ob ein spezifisches Bit gesetzt ist."""
     return (flags & (1 << bit)) != 0
+
+class StatusFileEventHandler(FileSystemEventHandler):
+    """Reagiert auf Änderungen der Statusdatei und aktualisiert den Cache."""
+    def on_modified(self, event):
+        if event.src_path.endswith("Status.json"):
+            print("Status.json wurde geändert. Aktualisiere den Cache.")
+            update_status_data()
+
+def start_watching():
+    """Startet die Überwachung der Statusdatei."""
+    path_to_watch = os.path.dirname(os.path.join(os.environ['USERPROFILE'], 'Saved Games', 'Frontier Developments', 'Elite Dangerous', 'Status.json'))
+    event_handler = StatusFileEventHandler()
+    observer = Observer()
+    observer.schedule(event_handler, path_to_watch, recursive=False)
+    observer.start()
+
+# Starte den Watchdog Observer in einem separaten Thread
+thread = threading.Thread(target=start_watching, daemon=True)
+thread.start()
+
+# Initialisiere den Cache beim Start des Moduls
+update_status_data()
 
 @router.get("/onFoot")
 async def on_foot():
@@ -285,7 +318,7 @@ async def get_all_status_info():
     status_data = get_status_data()
     summary_parts = []
     for key, value in status_data.items():
-        if isinstance(value, dict):  # Für verschachtelte Dictionaries eine spezielle Formatierung
+        if isinstance(value, dict):
             value = ", ".join([f"{k}: {v}" for k, v in value.items()])
         summary_parts.append(f"{key}: {value}")
     summary = "; ".join(summary_parts)

@@ -4,11 +4,22 @@ import json
 
 router = APIRouter()
 
+# Einfacher Cache als globales Dictionary
+cache = {}
+
 def get_status_data():
-    # Pfad zur status.json - stelle sicher, dass dieser Pfad auf dein System passt
+    global cache
     status_file_path = os.path.join(os.environ['USERPROFILE'], 'Saved Games', 'Frontier Developments', 'Elite Dangerous', 'Status.json')
+    
+    # Überprüfe, ob die Daten bereits im Cache sind und gib diese zurück, falls ja
+    if cache.get("status_data"):
+        return cache["status_data"]
+    
     with open(status_file_path, "r") as file:
         data = json.load(file)
+        
+    # Speichere die gelesenen Daten im Cache
+    cache["status_data"] = data
     return data
 
 def check_flag(flags, bit):
@@ -268,3 +279,14 @@ async def fsd_jump():
 async def srv_high_beam():
     status = get_status_data()
     return {"SrvHighBeam": check_flag(status.get("Flags", 0), 31)}
+
+@router.get("/all")
+async def get_all_status_info():
+    status_data = get_status_data()
+    summary_parts = []
+    for key, value in status_data.items():
+        if isinstance(value, dict):  # Für verschachtelte Dictionaries eine spezielle Formatierung
+            value = ", ".join([f"{k}: {v}" for k, v in value.items()])
+        summary_parts.append(f"{key}: {value}")
+    summary = "; ".join(summary_parts)
+    return {"summary": summary}

@@ -5,6 +5,7 @@ from threading import Thread
 from fastapi import FastAPI
 from status_module import router as status_router
 from cargo_module import router as cargo_router
+from log_module import router as log_router
 
 app = FastAPI(title="Mein FastAPI-Projekt")
 
@@ -42,6 +43,7 @@ async def startup_event():
 # Module einbinden
 app.include_router(status_router, prefix="/status")
 app.include_router(cargo_router, prefix="/cargo")
+app.include_router(log_router, prefix="/logs")
 
 @app.get("/")
 async def read_root():

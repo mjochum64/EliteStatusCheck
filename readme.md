@@ -104,6 +104,12 @@ Bit	Value	Hex	Meaning
 
 { "timestamp":"2024-03-31T16:02:24Z", "event":"Status", "Flags":1090650136, "Flags2":524288, "Pips":[7,1,4], "FireGroup":3, "GuiFocus":0, "Fuel":{ "FuelMain":23.455589, "FuelReservoir":0.544804 }, "Cargo":0.000000, "LegalState":"Clean", "Balance":2137875505, "Destination":{ "System":646259287065, "Body":0, "Name":"Plaa Eurk XK-X b2-0" } }
 
+### Beispiel eines Cargo Inhalts aus Cargo.Json
+{ "timestamp":"2024-04-01T09:40:57Z", "event":"Cargo", "Vessel":"Ship", "Count":688, "Inventory":[ 
+{ "Name":"bertrandite", "Name_Localised":"Bertrandit", "Count":688, "Stolen":0 }
+ ] }
+
+
 ## Endpoint Dokumentation
 
 FastAPI bietet über die "/docs" URL Informationen über die implementierten Schnittstellen.

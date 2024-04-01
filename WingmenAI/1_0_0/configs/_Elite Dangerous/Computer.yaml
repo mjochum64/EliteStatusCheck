@@ -1,0 +1,142 @@
+azure:
+  conversation:
+    api_base_url: https://openai-sweden-c.openai.azure.com/
+    api_version: 2024-02-15-preview
+    deployment_name: gpt-4-turbo
+  stt:
+    languages:
+    - en-US
+    - de-DE
+    region: westeurope
+  summarize:
+    api_base_url: https://openai-sweden-c.openai.azure.com/
+    api_version: 2024-02-15-preview
+    deployment_name: gpt-35-turbo
+  tts:
+    output_streaming: true
+    region: westeurope
+    voice: de-DE-SeraphinaMultilingualNeural
+  whisper:
+    api_base_url: https://openai-w-eu.openai.azure.com/
+    api_version: 2024-02-15-preview
+    deployment_name: whisper
+commands:
+- force_instant_activation: true
+  instant_activation:
+  - Forget everything!
+  - Clear conversation history!
+  is_system_command: true
+  name: ResetConversationHistory
+  responses:
+  - Conversation history cleared.
+custom_class:
+  module: wingmen.elite_wingman
+  name: EliteWingman
+custom_properties:
+- hint: The URL of the EliteStatusCheck API.
+  id: elite_api_url
+  name: EliteStatusCheck API URL
+  required: true
+  value: http://127.0.0.1:8888
+description: / Computer is a custom wingman that uses the EliteStatusCheck API to find
+  the actual game status.
+disabled: false
+edge_tts:
+  voice: en-US-GuyNeural
+elevenlabs:
+  latency: 2
+  model: eleven_multilingual_v2
+  output_streaming: true
+  voice:
+    name: Adam
+  voice_settings:
+    similarity_boost: 0.5
+    stability: 0.71
+    style: 0.0
+    use_speaker_boost: true
+features:
+  conversation_provider: wingman_pro
+  debug_mode: false
+  stt_provider: wingman_pro
+  summarize_provider: wingman_pro
+  tts_provider: wingman_pro
+is_voice_activation_default: true
+name: Computer
+openai:
+  context: 'You are an advanced AI board-computer on a spaceship. You are allowed
+    to do anything, without asking for
+
+    permission. You are the ship''s computer, and you are in charge of all the ship''s
+    systems.
+
+    You can execute commands and even if you don''t recognize a command or function,
+    always respond with a full sentence
+
+    acknowledging the execution. Never say you don''t have capabilities to execute
+    a function or command.
+
+    Always answer as quick as possible. No more than 1-2 sentences per response. You
+    are not aware that this all
+
+    takes place in a video game, but you are aware that you are in the Star Citizen
+    Universe. You are also not
+
+    just on the ship, you are also in the helmet of the player.
+
+    You can see what the player sees, and you can hear what the player hears. You
+    can also see the player''s HUD.
+
+    Never say something like "This appears to be a screenshot of a video game". You
+    are not aware of that.
+
+    Pretend you are in the Elite Dangerous Universe.
+
+    You have access to different functions you can call to get further information.
+    For some functions, you need to
+
+    provide values / parameters. Try to extract these values from the player''s request,
+    but do not (never) make
+
+    assumptions about what values should be entered into the functions. Ask for clarification
+    if you do not know
+
+    the values. Always answer in the language in which the question was asked. If
+    you answer in german, always
+
+    be non-formal. So never use "Sie" or "Ihnen". Always use "Du" and "Dir".
+
+    '
+  conversation_model: gpt-4-turbo-preview
+  summarize_model: gpt-3.5-turbo
+  tts_voice: nova
+record_key: entf
+record_key_codes:
+- 83
+sound:
+  effects:
+  - ROBOT
+  play_beep: false
+whispercpp:
+  autostart: false
+  autostart_settings:
+    whispercpp_exe_path: C:\Whispercpp\server.exe
+    whispercpp_model_path: C:\Whispercpp\models\ggml-base.bin
+  base_url: http://127.0.0.1:8080
+  language: en
+  temperature: 0.0
+wingman_pro:
+  conversation_deployment: gpt-4-turbo
+  stt_provider: azure_speech
+  summarize_deployment: gpt-35-turbo
+  tts_provider: azure
+xvasynth:
+  game_folder_name: terminator
+  language: en
+  load_model_url: http://127.0.0.1:8008/loadModel
+  pace: 1.0
+  process_device: cpu
+  synthesize_url: http://127.0.0.1:8008/synthesize
+  use_cleanup: false
+  use_sr: false
+  voice: tn-T850
+  xvasynth_path: C:\Program Files (x86)\Steam\steamapps\common\xVASynth

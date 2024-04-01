@@ -113,3 +113,7 @@ Bit	Value	Hex	Meaning
 ## Endpoint Dokumentation
 
 FastAPI bietet über die "/docs" URL Informationen über die implementierten Schnittstellen.
+
+## Start der Applikation
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8888

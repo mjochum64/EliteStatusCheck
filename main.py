@@ -7,7 +7,7 @@ from status_module import router as status_router
 from cargo_module import router as cargo_router
 from log_module import router as log_router
 
-app = FastAPI(title="Mein FastAPI-Projekt")
+app = FastAPI(title="EliteStatusCheck v0.1.0")
 
 # Dateinamen, die überwacht werden sollen
 files_to_watch = ["Status.json", "Cargo.json"]
@@ -47,4 +47,4 @@ app.include_router(log_router, prefix="/logs")
 
 @app.get("/")
 async def read_root():
-    return {"message": "Willkommen zu meiner FastAPI-Anwendung!"}
+    return {"message": "Willkommen zur EliteStatusCheck-API!"}

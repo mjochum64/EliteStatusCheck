@@ -5,7 +5,7 @@ from threading import Thread
 from fastapi import FastAPI
 from status_module import router as status_router
 from cargo_module import router as cargo_router
-from log_module import router as log_router
+from log_module import router as log_router, get_current_star_system
 
 app = FastAPI(title="EliteStatusCheck v0.1.0")
 
@@ -47,4 +47,13 @@ app.include_router(log_router, prefix="/logs")
 
 @app.get("/")
 async def read_root():
-    return {"message": "Willkommen zur EliteStatusCheck-API!"}
+    # Hole das aktuelle Sternensystem vom log_module
+    current_star_system = await get_current_star_system()
+    system_name = current_star_system.get("StarSystem", "Unbekanntes System")
+    
+    # Hole die Flags und Flags2 aus der Status.json, falls verfügbar
+    status_data = cached_data.get("Status.json", {})
+    flags = status_data.get("Flags", 0)
+    flags2 = status_data.get("Flags2", 0)
+    
+    return {"System": system_name, "Flags": flags, "Flags2": flags2}

@@ -26,7 +26,7 @@ def read_latest_log_entry() -> Dict:
                 try:
                     entry = json.loads(line)
                     # Prüfe, ob der Eintrag das gesuchte Event enthält
-                    if entry.get("event") == "SupercruiseExit":
+                    if entry.get("event") == "FSDJump":
                         return entry
                 except json.JSONDecodeError:
                     continue

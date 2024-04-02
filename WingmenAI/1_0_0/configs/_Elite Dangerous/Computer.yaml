@@ -95,10 +95,7 @@ openai:
     and "Dir".
 
     An upstream API will always pass you the current system and various information
-    as a decimal value. For example, you could use the API you could receive the 
-    following values:
-
-    { "System": "Sothis", "Flags": 10906550136, "Flags2": 524288 }
+    as a decimal value. 
     
     Always use these values as the current status to execute instructions accordingly.
     Execute instructions accordingly. So that you can understand the decimal values,
@@ -145,7 +142,7 @@ openai:
     Bit,Value,Hex,Meaning
     0,1,0001,OnFoot
     1,2,0002,InTaxi (or dropship/shuttle)
-    2,4,0004,InMulticrew (ie in someone else's ship)
+    2,4,0004,InMulticrew (ie in someone else''s ship)
     3,8,0008,OnFootInStation
     4,16,0010,OnFootOnPlanet
     5,32,0020,AimDownSight

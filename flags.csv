@@ -1,6 +1,6 @@
 Bit,Value,Hex,Meaning
-0,1,0000 0001,Docked, (on a landing pad)
-1,2,0000 0002,Landed, (on planet surface)
+0,1,0000 0001,Docked (on a landing pad)
+1,2,0000 0002,Landed (on planet surface)
 2,4,0000 0004,Landing Gear Down
 3,8,0000 0008,Shields Up
 4,16,0000 0010,Supercruise

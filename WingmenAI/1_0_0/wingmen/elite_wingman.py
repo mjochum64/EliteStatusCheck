@@ -14,7 +14,7 @@ from wingmen.open_ai_wingman import OpenAiWingman
 printr = Printr()
 
 class EliteWingman(OpenAiWingman):
-    """Our Elite Wingman uses the EliteStatusChecker API to find the actual status information.    
+    """Our Elite Wingman uses the EliteStatusChecker API to read the actual status information.    
     """
 
     def __init__(
@@ -79,7 +79,7 @@ class EliteWingman(OpenAiWingman):
     async def _prepare_data(self):
         self.start_execution_benchmark()
 
-        self.status_types = await self._fetch_data("status/all")
+        self.status_types = await self._fetch_data("/")
         
     async def _fetch_data(
         self, endpoint: str, params: Optional[dict[str, any]] = None

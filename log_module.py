@@ -28,6 +28,8 @@ def read_latest_log_entry() -> Dict:
                     # Prüfe, ob der Eintrag das gesuchte Event enthält
                     if entry.get("event") == "FSDJump":
                         return entry
+                    elif entry.get("event") == "Location":
+                        return entry
                 except json.JSONDecodeError:
                     continue
     return {}

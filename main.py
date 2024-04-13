@@ -1,7 +1,6 @@
-import time
 import json
 import os
-from threading import Thread
+import asyncio
 import uvicorn
 from fastapi import FastAPI
 from status_module import router as status_router
@@ -38,21 +37,25 @@ def read_and_update_files():
         except Exception as e:
             print(f"Fehler beim Lesen von {filename}: {e}")
 
-def start_file_watcher():
+async def start_file_watcher():
     """
-    Start the file watcher that reads and updates specified files every 10 seconds.
+    Start the file watcher that reads and updates specified files every 10 seconds using asyncio.
     """
     while True:
         read_and_update_files()
-        time.sleep(10)  # Überprüfe die Dateien alle 10 Sekunden
+        await asyncio.sleep(10)
 
-@app.on_event("startup")
-async def startup_event():
+async def app_lifespan(app):
     """
-    Handles the startup event of the FastAPI application by starting the file watcher thread.
+    Asynchronous generator to handle startup and shutdown events.
     """
-    watcher_thread = Thread(target=start_file_watcher, daemon=True)
-    watcher_thread.start()
+    try:
+        await asyncio.create_task(start_file_watcher())
+        yield
+    finally:
+        print("Cleanup actions here")
+
+app.router.lifespan = app_lifespan
 
 # Module einbinden
 app.include_router(status_router, prefix="/status")
@@ -74,7 +77,6 @@ async def read_root():
     flags2 = status_data.get("Flags2", 0)
 
     return {"System": system_name, "Flags": flags, "Flags2": flags2}
-
 
 # Start the FastAPI application
 if __name__ == "__main__":

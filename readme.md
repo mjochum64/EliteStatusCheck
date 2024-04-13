@@ -151,7 +151,7 @@ folgende Datentabelle liefern kann.
 Die implementierten Schnittstellen können über die URL "/docs" eingesehen werden.
 
 ## Aktuelle Informationen
-- **Entwickler:** [Martin Jochum <mjochum64@gmail.com>]
+- **Entwickler:** [Martin Jochum]
 - **Version:** 0.0.1
 - **Letztes Update:** [13.04.2024]
 - **Lizenz:** [MIT]

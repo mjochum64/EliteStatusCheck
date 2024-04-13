@@ -1,3 +1,5 @@
+"""FastAPI Applikation zum überwachen von Elite Dangerous Statusdaten"""
+
 import json
 import os
 import asyncio
@@ -24,6 +26,7 @@ base_path = os.path.join(
 # Caching der Dateiinhalte
 cached_data = {}
 
+
 def read_and_update_files():
     """
     Reads and updates files based on the content of files_to_watch.
@@ -31,11 +34,16 @@ def read_and_update_files():
     for filename in files_to_watch:
         file_path = os.path.join(base_path, filename)
         try:
-            with open(file_path, "r") as file:
+            with open(
+                file_path, "r", encoding="utf-8"
+            ) as file:  # Specify the encoding as utf-8
                 data = json.load(file)
                 cached_data[filename] = data
-        except Exception as e:
+        except FileNotFoundError as e:
             print(f"Fehler beim Lesen von {filename}: {e}")
+        except json.JSONDecodeError as e:
+            print(f"Fehler beim Decodieren von JSON in {filename}: {e}")
+
 
 async def start_file_watcher():
     """
@@ -45,7 +53,8 @@ async def start_file_watcher():
         read_and_update_files()
         await asyncio.sleep(10)
 
-async def app_lifespan(app):
+
+async def app_lifespan():
     """
     Asynchronous generator to handle startup and shutdown events.
     """
@@ -60,12 +69,14 @@ async def app_lifespan(app):
             print("File watcher cancelled.")
         print("Cleanup actions here")
 
+
 app.router.lifespan = app_lifespan
 
 # Module einbinden
 app.include_router(status_router, prefix="/status")
 app.include_router(cargo_router, prefix="/cargo")
 app.include_router(log_router, prefix="/logs")
+
 
 @app.get("/")
 async def read_root():
@@ -83,13 +94,13 @@ async def read_root():
 
     return {"System": system_name, "Flags": flags, "Flags2": flags2}
 
+
 # Start the FastAPI application
 if __name__ == "__main__":
     try:
         uvicorn.run(app, host="0.0.0.0", port=8888)
     except KeyboardInterrupt:
         print("Anwendung wird beendet...")
-        # Du kannst hier auch zusätzliche Aufräumarbeiten vornehmen, falls nötig.
     except asyncio.CancelledError:
         print("Asynchrone Operationen wurden abgebrochen.")
     finally:

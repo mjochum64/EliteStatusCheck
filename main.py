@@ -1,8 +1,8 @@
 import json
 import os
 import asyncio
-import uvicorn
 from fastapi import FastAPI
+import uvicorn
 from status_module import router as status_router
 from cargo_module import router as cargo_router
 from log_module import router as log_router, get_current_star_system
@@ -49,10 +49,15 @@ async def app_lifespan(app):
     """
     Asynchronous generator to handle startup and shutdown events.
     """
+    task = asyncio.create_task(start_file_watcher())
     try:
-        await asyncio.create_task(start_file_watcher())
         yield
     finally:
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            print("File watcher cancelled.")
         print("Cleanup actions here")
 
 app.router.lifespan = app_lifespan
@@ -80,4 +85,12 @@ async def read_root():
 
 # Start the FastAPI application
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8888)
+    try:
+        uvicorn.run(app, host="0.0.0.0", port=8888)
+    except KeyboardInterrupt:
+        print("Anwendung wird beendet...")
+        # Du kannst hier auch zusätzliche Aufräumarbeiten vornehmen, falls nötig.
+    except asyncio.CancelledError:
+        print("Asynchrone Operationen wurden abgebrochen.")
+    finally:
+        print("Ende der Anwendung.")

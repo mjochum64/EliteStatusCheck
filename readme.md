@@ -78,7 +78,7 @@ Dem ersten Bitwert "Flags" liegt folgende Datentabelle zu Grunde.
 | 31   | 2147483648| 8000 0000  | srvHighBeam                      |
 
 #### Bitwert "Flags2"
-Weiter Informationen liefert der zweite Bitwert "Flags2", welcher Informationen anhand der 
+Weitere Informationen liefert der zweite Bitwert "Flags2", welcher Informationen anhand der 
 folgende Datentabelle liefern kann.
 
 | Bit | Value | Hex      | Meaning                 |

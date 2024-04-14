@@ -1,4 +1,4 @@
-"""FastAPI Applikation zum überwachen von Elite Dangerous Statusdaten"""
+"""FastAPI Applikation zur Überwachung von Elite Dangerous Statusdaten"""
 
 import json
 import os
@@ -10,20 +10,20 @@ from cargo_module import router as cargo_router
 from log_module import router as log_router, get_current_star_system
 
 app = FastAPI(
-    title="Elite Status Check",
+    title="Elite Dangerous Status Check",
     version="0.0.1",
     description="Eine API zum Überwachen von Elite Dangerous Statusdaten",
 )
 
-# Dateinamen, die überwacht werden sollen
+# Filenames which should be watched for changes
 files_to_watch = ["Status.json", "Cargo.json"]
 
-# Pfad zum Verzeichnis, in dem die Dateien liegen
+# Path to the game data directory
 base_path = os.path.join(
     os.environ["USERPROFILE"], "Saved Games", "Frontier Developments", "Elite Dangerous"
 )
 
-# Caching der Dateiinhalte
+# Initial data cache
 cached_data = {}
 
 
@@ -98,7 +98,7 @@ async def read_root():
 # Start the FastAPI application
 if __name__ == "__main__":
     try:
-        uvicorn.run(app, host="0.0.0.0", port=8888)
+        uvicorn.run(app, host="{% load 0.0.0.0_tags %}", port=8888)
     except KeyboardInterrupt:
         print("Anwendung wird beendet...")
     except asyncio.CancelledError:

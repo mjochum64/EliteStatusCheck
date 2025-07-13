@@ -11,7 +11,7 @@ from elite_status.log_module import router as log_router
 
 app = FastAPI(
     title="Elite Dangerous Status Check",
-    version="0.0.1",
+    version="1.0.0",
     description="Eine API zum Überwachen von Elite Dangerous Statusdaten",
     docs_url="/api/v1/docs",
     openapi_url="/api/v1/openapi.json",
@@ -31,7 +31,7 @@ def root():
     """
     return {
         "name": "Elite Dangerous Status Check API",
-        "version": "0.0.1",
+        "version": "1.0.0",
         "description": "API zur Überwachung von Elite Dangerous Statusdaten.",
         "docs": "/api/v1/docs",
         "endpoints": [

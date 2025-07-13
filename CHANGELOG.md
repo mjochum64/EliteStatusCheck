@@ -19,3 +19,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Alte Module wurden archiviert (umbenannt zu `archived_*.py`).
 - Neuer Root-Endpunkt `/` gibt API-Info, Version, Doku-Link und Hauptendpunkte als JSON zurück.
 - Neuer /api/v1/cargo/ Endpunkt liefert aktuelle Frachtdaten aus Cargo.json oder eine Fehlermeldung.
+
+## [1.0.0] - 2025-07-13
+- Erstes stabiles Release: API-Endpunkte für Status, Cargo, aktuelles Sternensystem, Root-Info, plattformübergreifende Pfaderkennung, Tests und vollständige Dokumentation.

@@ -60,7 +60,7 @@ Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger
 
 ## Aktuelle Informationen
 - **Entwickler:** [Martin Jochum]
-- **Version:** 0.0.1
+- **Version:** 1.0.0
 - **Letztes Update:** 13.07.2025
 - **Lizenz:** [MIT]
 - **Kontakt:** [mjochum64@gmail.com]

@@ -174,3 +174,13 @@ pilot-env/
 
 # Other
 brija.py
+
+# Environment variables
+.env
+
+# VSCode
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

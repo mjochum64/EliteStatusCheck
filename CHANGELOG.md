@@ -13,3 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Created `GEMINI.md` with AI agent instructions tailored for this project.
 - Created this `CHANGELOG.md` to document project changes.
 - Transferred existing modules (`status_module.py`, `cargo_module.py`, `log_module.py`) from a previous project as a starting point.
+
+## [13.07.2025]
+- Migration der Funktionalität aus `main.py`, `status_module.py`, `log_module.py`, `cargo_module.py` in das neue Verzeichnis `elite_status/` abgeschlossen.
+- Alte Module wurden archiviert (umbenannt zu `archived_*.py`).

@@ -1,3 +1,6 @@
 fastapi==0.75.0
 uvicorn==0.17.6
 watchdog==2.1.6
+httpx
+pydantic
+python-dotenv

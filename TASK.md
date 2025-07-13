@@ -53,3 +53,11 @@
 ## Discovered During Work
 
 - (Empty)
+
+## [13.07.2025]
+- Migration der Status-Logik aus `status_module.py` nach `elite_status/status_fetcher.py` begonnen.
+- Migration der Logik aus `log_module.py` nach `elite_status/log_module.py`.
+- Migration der Cargo-Logik aus `cargo_module.py` nach `elite_status/cargo_module.py`.
+- Migration des Hauptmoduls aus `main.py` nach `elite_status/main.py`.
+- Anpassung an neue Struktur, Docstrings und Fehlerbehandlung.
+- Nächste Schritte: finale Entfernung der alten Dateien und Test der neuen Struktur.

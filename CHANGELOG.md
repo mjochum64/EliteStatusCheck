@@ -22,3 +22,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.0.0] - 2025-07-13
 - Erstes stabiles Release: API-Endpunkte für Status, Cargo, aktuelles Sternensystem, Root-Info, plattformübergreifende Pfaderkennung, Tests und vollständige Dokumentation.
+
+## [1.0.1] - 2025-07-13
+### Geändert
+- Abhängigkeit 'requests' zu requirements.txt hinzugefügt (Test-Fix)
+- Testumgebung und Dokumentation aktualisiert
+- Alle Tests laufen erfolgreich

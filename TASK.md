@@ -53,3 +53,7 @@ Die Tests simulieren verschiedene Szenarien (Erfolgsfall, Datei fehlt, Datei lee
 - Migration der Cargo-Logik aus `cargo_module.py` nach `elite_status/cargo_module.py`.
 - Neuer Root-Endpunkt `/` gibt API-Info, Version, Doku-Link und Hauptendpunkte als JSON zurück.
 - Neuer /api/v1/cargo/ Endpunkt liefert aktuelle Frachtdaten aus Cargo.json oder eine Fehlermeldung.
+
+## 2025-07-13
+### Release 1.0.1
+- Release 1.0.1 veröffentlicht: Testumgebung und Abhängigkeiten aktualisiert, alle Tests laufen erfolgreich. (erledigt)

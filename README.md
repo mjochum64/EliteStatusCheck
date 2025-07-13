@@ -64,3 +64,13 @@ Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger
 - **Letztes Update:** 13.07.2025
 - **Lizenz:** [MIT]
 - **Kontakt:** [mjochum64@gmail.com]
+
+## 4. Testing
+
+- Unit-Tests für die wichtigsten API-Endpunkte (`status_fetcher`, `cargo_module`, `log_module`) mit Pytest und FastAPI TestClient implementiert.
+- Tests decken Erfolgs- und Fehlerfälle ab (Datei vorhanden, fehlt, leer etc.).
+- Tests können mit folgendem Befehl ausgeführt werden:
+
+      pytest tests/
+
+- Weitere Tests für Datenmodelle und Transformationen empfohlen.

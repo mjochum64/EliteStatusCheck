@@ -26,9 +26,15 @@
 
 ## 4. Testing
 
-- [ ] Write unit tests for the `status_fetcher`.
+- [x] Write unit tests for die wichtigsten API-Endpunkte (`status_fetcher`, `cargo_module`, `log_module`).
 - [ ] Write tests for the Pydantic data models.
 - [ ] Write tests for any data transformation logic.
+
+**Tests ausführen:**
+
+    pytest tests/
+
+Die Tests simulieren verschiedene Szenarien (Erfolgsfall, Datei fehlt, Datei leer) und nutzen FastAPI TestClient sowie Pytest.
 
 ## 5. Documentation
 

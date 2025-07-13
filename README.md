@@ -31,9 +31,9 @@ Eine API zum Überwachen von Elite Dangerous Statusdaten.
     `uvicorn elite_status.main:app --reload --host 0.0.0.0 --port 8000`
 
 ## Aktuell gültige Endpunkte
-- `/status`: Gibt den aktuellen Status zurück
-- `/cargo`: Zeigt die Frachtdaten an (noch nicht implementiert!)
-- `/log/currentStarSystem`: Gibt das aktuelle Sternensystem zurück
+- `/api/v1/status`: Gibt den aktuellen Status zurück
+- `/api/v1/cargo`: Zeigt die Frachtdaten an (noch nicht implementiert!)
+- `/api/v1/currentStarSystem`: Gibt das aktuelle Sternensystem zurück
 
 ## Dateiüberwachung
 Die Anwendung überwacht die JSON-Dateien "Status.json" und "Cargo.json" im Savegame-Verzeichnis.
@@ -56,7 +56,7 @@ Weitere Dateien können in zukünftigen Erweiterungen folgen.
 - Implementiert Protokollierungsfunktionen und Endpunkte
 
 ## API-Dokumentation
-Die implementierten Schnittstellen können über die URL `/docs` (Swagger UI) eingesehen werden.
+Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger UI) eingesehen werden.
 
 ## Aktuelle Informationen
 - **Entwickler:** [Martin Jochum]

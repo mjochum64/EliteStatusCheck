@@ -95,3 +95,14 @@ thread.start()
 
 # Initialisiere den Cache beim Start des Moduls
 update_status_data()
+
+
+@router.get("/", summary="Gibt den aktuellen Elite Dangerous Status zurück.")
+def get_status():
+    """
+    Gibt die aktuellen Statusdaten aus dem Cache zurück.
+
+    Returns:
+        dict: Die aktuellen Statusdaten.
+    """
+    return get_status_data()

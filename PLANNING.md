@@ -62,5 +62,6 @@ The primary data source will be the Elite Dangerous APIs, if available and publi
 - Migration der Logik aus `log_module.py` nach `elite_status/log_module.py`.
 - Migration der Cargo-Logik aus `cargo_module.py` nach `elite_status/cargo_module.py`.
 - Migration des Hauptmoduls aus `main.py` nach `elite_status/main.py`.
+- Neuer Root-Endpunkt `/` gibt API-Info, Version, Doku-Link und Hauptendpunkte als JSON zurück.
 - Anpassung an neue Struktur und PEP8.
 - Fehlerbehandlung und Docstrings verbessert.

@@ -18,3 +18,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Migration der Funktionalität aus `main.py`, `status_module.py`, `log_module.py`, `cargo_module.py` in das neue Verzeichnis `elite_status/` abgeschlossen.
 - Alte Module wurden archiviert (umbenannt zu `archived_*.py`).
 - Neuer Root-Endpunkt `/` gibt API-Info, Version, Doku-Link und Hauptendpunkte als JSON zurück.
+- Neuer /api/v1/cargo/ Endpunkt liefert aktuelle Frachtdaten aus Cargo.json oder eine Fehlermeldung.

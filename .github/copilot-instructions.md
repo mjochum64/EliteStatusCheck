@@ -73,6 +73,12 @@
 
 3. **Add `# Reason:` comments** to explain complex logic, focusing on the "why" rather than just the "what".
 
+## 6. Arbeitsweise Copilot/AI
+
+- Nach jeder Änderung am Code oder an der API sind die Dateien `TASK.md` und `CHANGELOG.md` sofort zu aktualisieren.
+- Jede neue Funktion, jeder Endpunkt und jede relevante Anpassung muss dokumentiert werden.
+- Die Einhaltung dieser Regel ist verpflichtend für alle AI-gestützten Änderungen.
+
 ### AI Behavior Rules
 
 1. **Ask questions if context is missing**—do not make assumptions.

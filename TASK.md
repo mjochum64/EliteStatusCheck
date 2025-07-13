@@ -46,3 +46,4 @@
 - Migration der Logik aus `log_module.py` nach `elite_status/log_module.py`.
 - Migration der Cargo-Logik aus `cargo_module.py` nach `elite_status/cargo_module.py`.
 - Neuer Root-Endpunkt `/` gibt API-Info, Version, Doku-Link und Hauptendpunkte als JSON zurück.
+- Neuer /api/v1/cargo/ Endpunkt liefert aktuelle Frachtdaten aus Cargo.json oder eine Fehlermeldung.

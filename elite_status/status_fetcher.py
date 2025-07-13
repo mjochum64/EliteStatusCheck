@@ -8,6 +8,7 @@ import json
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import threading
+from elite_status.utils import get_elite_dangerous_save_path
 
 router = APIRouter()
 
@@ -29,13 +30,11 @@ def update_status_data() -> None:
     """
     Aktualisiert die Daten im Cache.
     """
-    status_file_path = os.path.join(
-        os.environ.get("USERPROFILE", ""),
-        "Saved Games",
-        "Frontier Developments",
-        "Elite Dangerous",
-        "Status.json",
-    )
+    status_dir = get_elite_dangerous_save_path()
+    if not status_dir:
+        print("Elite Dangerous Savegame-Verzeichnis nicht gefunden!")
+        return
+    status_file_path = os.path.join(status_dir, "Status.json")
     global default_cache
     try:
         with open(status_file_path, "r", encoding="utf-8") as file:
@@ -78,17 +77,12 @@ class StatusFileEventHandler(FileSystemEventHandler):
 
 def start_watching() -> None:
     """
-    Startet die Überwachung der Statusdatei.
+    Startet die Überwachung der Statusdatei, falls das Verzeichnis existiert.
     """
-    path_to_watch = os.path.dirname(
-        os.path.join(
-            os.environ.get("USERPROFILE", ""),
-            "Saved Games",
-            "Frontier Developments",
-            "Elite Dangerous",
-            "Status.json",
-        )
-    )
+    path_to_watch = os.path.dirname(os.path.join(get_elite_dangerous_save_path() or '', 'Status.json'))
+    if not os.path.isdir(path_to_watch):
+        print(f"[WARN] Überwachungs-Verzeichnis nicht gefunden: {path_to_watch}. Watchdog wird nicht gestartet.")
+        return
     event_handler = StatusFileEventHandler()
     observer = Observer()
     observer.schedule(event_handler, path_to_watch, recursive=False)

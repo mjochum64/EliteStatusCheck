@@ -3,6 +3,7 @@ import os
 import json
 from typing import Dict, Optional
 from glob import glob
+from elite_status.utils import get_elite_dangerous_save_path
 
 router = APIRouter()
 
@@ -30,7 +31,10 @@ def read_latest_log_entry() -> Dict:
     Returns:
         Dict: Der letzte relevante Log-Eintrag oder ein leeres Dict.
     """
-    directory_path = os.path.join(os.environ.get('USERPROFILE', ''), 'Saved Games', 'Frontier Developments', 'Elite Dangerous')
+    directory_path = get_elite_dangerous_save_path()
+    if not directory_path:
+        print("Elite Dangerous Savegame-Verzeichnis nicht gefunden!")
+        return {}
     latest_log_file = get_latest_log_file(directory_path)
     if latest_log_file:
         with open(latest_log_file, "r", encoding="utf-8") as file:

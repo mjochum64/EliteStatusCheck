@@ -28,3 +28,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Abhängigkeit 'requests' zu requirements.txt hinzugefügt (Test-Fix)
 - Testumgebung und Dokumentation aktualisiert
 - Alle Tests laufen erfolgreich
+
+## [1.0.2] - 2025-07-13
+### Hinzugefügt
+- Hilfsfunktion parse_status_flags(flags) zur Auswertung aller relevanten Statusbits
+- Neuen API-Endpunkt /api/v1/status/parsed für die wichtigsten Statusflags als boolesche Felder
+- Endpunkt /api/v1/action für Aktionen wie das Steuern des Fahrwerks (Landing Gear)

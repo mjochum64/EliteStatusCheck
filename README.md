@@ -34,6 +34,8 @@ Eine API zum Überwachen von Elite Dangerous Statusdaten.
 - `/api/v1/status`: Gibt den aktuellen Status zurück
 - `/api/v1/cargo`: Zeigt die Frachtdaten an (noch nicht implementiert!)
 - `/api/v1/currentStarSystem`: Gibt das aktuelle Sternensystem zurück
+- `/api/v1/status/parsed`: Gibt die wichtigsten Statusflags als boolesche Felder zurück
+- `/api/v1/action`: Führt Aktionen wie das Steuern des Fahrwerks aus (POST, z.B. `{ "action": "toggle_landing_gear" }`)
 
 ## Dateiüberwachung
 Die Anwendung überwacht die JSON-Dateien "Status.json" und "Cargo.json" im Savegame-Verzeichnis.
@@ -74,3 +76,6 @@ Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger
       pytest tests/
 
 - Weitere Tests für Datenmodelle und Transformationen empfohlen.
+
+**Achtung (Wayland):**
+Virtuelle Eingabegeräte (z.B. python-uinput) werden unter Wayland aus Sicherheitsgründen nicht an laufende Anwendungen oder Spiele durchgereicht. Für systemweite Eingaben und Gaming/Automation ist X11 weiterhin die zuverlässigere Wahl. Unter Wayland funktionieren virtuelle Tastaturen meist nur in evtest, aber nicht in normalen Programmen oder Spielen.

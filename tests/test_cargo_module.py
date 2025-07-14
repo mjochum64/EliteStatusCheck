@@ -2,6 +2,10 @@
 Pytest unit tests for cargo_module (API /api/v1/cargo/)
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pytest
 from fastapi.testclient import TestClient
 from elite_status.main import app

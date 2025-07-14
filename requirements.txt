@@ -6,3 +6,4 @@ uvicorn
 watchdog
 pytest
 requests
+python-uinput

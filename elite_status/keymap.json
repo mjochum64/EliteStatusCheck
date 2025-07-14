@@ -1,0 +1,7 @@
+{
+  "toggle_landing_gear": ["l"],
+  "set_landing_gear": ["l"],
+  "toggle_lights": ["alt", "l"],
+  "boost": ["left_shift", "space"],
+  "fire_primary": ["mouse1"]
+}

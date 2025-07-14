@@ -79,3 +79,26 @@ Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger
 
 **Achtung (Wayland):**
 Virtuelle Eingabegeräte (z.B. python-uinput) werden unter Wayland aus Sicherheitsgründen nicht an laufende Anwendungen oder Spiele durchgereicht. Für systemweite Eingaben und Gaming/Automation ist X11 weiterhin die zuverlässigere Wahl. Unter Wayland funktionieren virtuelle Tastaturen meist nur in evtest, aber nicht in normalen Programmen oder Spielen.
+
+---
+
+## Architektur-Empfehlung: Trennung von Backend (Game-PC) und Frontend (Remote-Gerät)
+
+**Konzept:**
+- Das Backend läuft lokal auf dem Spiele-PC und ist für die systemnahe Eingabe (z.B. uinput, xdotool) zuständig.
+- Die Frontend-App (z.B. Flutter-App) läuft auf einem separaten Gerät (Smartphone, Tablet, etc.) und kommuniziert über das Netzwerk (WLAN/LAN) mit dem Backend.
+- Das Spiel bleibt immer im Fokus und verliert keine Eingabeberechtigung.
+- Die Steuerung erfolgt komfortabel und flexibel über das externe Gerät.
+
+**Vorteile:**
+- Keine Fokus-Probleme oder Konflikte mit Fenstermanagement (X11/Wayland).
+- Systemnahe Eingaben funktionieren zuverlässig, da das Backend direkt auf dem Spiele-PC läuft.
+- Mehr Flexibilität für den Nutzer (z.B. Touch, Sprache, mehrere Geräte).
+- Bessere Sicherheit: Das Backend kann API-Authentifizierung und Zugriffskontrolle implementieren.
+
+**Hinweise:**
+- Stelle sicher, dass das Backend im lokalen Netzwerk erreichbar ist (Firewall, Portfreigabe).
+- Aktiviere Authentifizierung für die API, um Missbrauch zu verhindern.
+- Dokumentiere die Netzwerk-Architektur und die Vorteile für Nutzer und Entwickler.
+
+---

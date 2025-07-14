@@ -2,7 +2,8 @@
 Module for fetching Elite Dangerous status from APIs.
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends, Header, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import Optional
 import os
@@ -150,6 +151,23 @@ thread.start()
 update_status_data()
 
 
+security = HTTPBearer()
+
+# Token-basierte Authentifizierung
+API_TOKEN = os.environ.get("ELITESTATUS_API_TOKEN", "changeme123")
+
+def check_token(credentials: HTTPAuthorizationCredentials = Security(security)):
+    """
+    Prüft das übergebene Bearer-Token.
+    Args:
+        credentials (HTTPAuthorizationCredentials): Die übermittelten Authentifizierungsdaten.
+    Raises:
+        HTTPException: Wenn das Token fehlt oder ungültig ist.
+    """
+    if credentials.scheme != "Bearer" or credentials.credentials != API_TOKEN:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+
 @router.get("/", summary="Gibt den aktuellen Elite Dangerous Status zurück.")
 def get_status():
     """
@@ -217,7 +235,8 @@ UINPUT_KEY_MAP = {
 UINPUT_DEVICE = uinput.Device(list(set(UINPUT_KEY_MAP.values())))
 
 
-@router.post("/action", summary="Führt eine Aktion im Spiel aus (z.B. Fahrwerk steuern)")
+# Beispiel für geschützten Endpunkt:
+@router.post("/action", summary="Führt eine Aktion im Spiel aus (z.B. Fahrwerk steuern)", dependencies=[Depends(check_token)])
 def perform_action(request: ActionRequest):
     """
     Führt eine Aktion wie das Aus- oder Einfahren des Fahrwerks aus.

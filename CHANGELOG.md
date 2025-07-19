@@ -34,3 +34,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Hilfsfunktion parse_status_flags(flags) zur Auswertung aller relevanten Statusbits
 - Neuen API-Endpunkt /api/v1/status/parsed für die wichtigsten Statusflags als boolesche Felder
 - Endpunkt /api/v1/action für Aktionen wie das Steuern des Fahrwerks (Landing Gear)
+
+# CHANGELOG.md
+
+## 2025-07-19
+- Erweiterung des Sprachbefehl-Mappings in `command_parser.py` um zahlreiche Elite Dangerous Funktionen (Fahrwerk, Lichter, Frachtluke, Hardpoints, Supercruise, FSD, Nachtmodus, Analysemodus, Statusabfragen etc.).
+- Neuer Endpoint `/api/v1/command` im Backend zur Verarbeitung von Textbefehlen (Sprachsteuerung).
+- Konzept und alle relevanten Markdown-Dokumente in den `docs/`-Ordner verschoben.
+- Dokumentation und Konzept für sprachgesteuerte KI-Kommunikation im Frontend und Backend aktualisiert.

@@ -15,6 +15,7 @@ from elite_status.utils import get_elite_dangerous_save_path
 import subprocess
 import pathlib
 import uinput
+from elite_status.command_parser import parse_command
 
 router = APIRouter()
 
@@ -282,3 +283,41 @@ def perform_action(request: ActionRequest):
         return {"success": True, "new_status": new_parsed}
     else:
         raise HTTPException(status_code=400, detail="Unbekannte oder nicht unterstützte Aktion.")
+
+
+class CommandRequest(BaseModel):
+    command: str
+
+
+@router.post("/command", summary="Verarbeitet einen Textbefehl per KI/Mustererkennung", dependencies=[Depends(check_token)])
+def process_command(request: CommandRequest):
+    """
+    Analysiert einen Textbefehl und führt – sofern möglich – die gewünschte Aktion aus.
+
+    Args:
+        request (CommandRequest): Enthält das erkannte Sprachkommando.
+
+    Returns:
+        dict: Ergebnis der Aktion oder Fehlermeldung.
+    """
+    parsed = parse_command(request.command)
+    if not parsed:
+        return {"success": False, "result": "Befehl nicht erkannt.", "action": None}
+    action, value = parsed
+    # Beispiel: Nur Fahrwerk und Lichter werden unterstützt
+    if action in ["toggle_landing_gear", "set_landing_gear"]:
+        # Reuse perform_action-Logik
+        from fastapi.testclient import TestClient
+        client = TestClient(router)
+        # Simuliere internen Aufruf
+        action_req = {"action": action}
+        if value is not None:
+            action_req["value"] = value
+        # Token-Check wird durch Depends abgedeckt
+        # Führe Aktion direkt aus
+        return perform_action(ActionRequest(**action_req))
+    elif action in ["toggle_lights", "set_lights"]:
+        # Hier könnte analog eine perform_lights_action implementiert werden
+        return {"success": False, "result": "Lichtersteuerung noch nicht implementiert.", "action": action}
+    else:
+        return {"success": False, "result": "Aktion nicht unterstützt.", "action": action}

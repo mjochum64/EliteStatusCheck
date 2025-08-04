@@ -4,12 +4,19 @@
 Eine API zum Überwachen von Elite Dangerous Statusdaten.
 
 ## Verzeichnisstruktur
-- elite_status/main.py: Hauptdatei der Anwendung (FastAPI-Server)
-- elite_status/status_fetcher.py: Modul zur Überwachung und Verarbeitung der Statusdateien
-- elite_status/cargo_module.py: Modul zur Verwaltung von Frachtdaten
-- elite_status/log_module.py: Modul zur Protokollierung
-- tests/: Unit-Tests für die Module
-- archived_*.py: Archivierte Altdateien (nur zu Referenzzwecken)
+- **elite_status/**: Hauptanwendung (FastAPI-Backend)
+  - main.py: FastAPI-Server und Anwendungseinsprungspunkt
+  - status_fetcher.py: Statusüberwachung und Action-System
+  - cargo_module.py: Frachtdaten-Management
+  - log_module.py: Protokollierung und Sternsystem-Tracking
+  - command_parser.py: Sprachbefehl-Verarbeitung
+  - utils.py: Hilfsfunktionen (Pfaderkennung)
+  - data_models.py: Pydantic-Datenmodelle
+- **tests/**: Umfassende Unit-Tests für alle Module
+- **docs/**: Dokumentation und API-Spezifikationen
+  - INARA.txt: Inara API-Dokumentation für Marktdaten-Integration
+  - Weitere technische Dokumentation
+- **CLAUDE.md**: Entwicklerdokumentation für AI-Assistenten
 
 ## Verwendung
 1. Installiere die erforderlichen Bibliotheken:
@@ -24,18 +31,36 @@ Eine API zum Überwachen von Elite Dangerous Statusdaten.
 
 3. Starte die Anwendung mit:
 
-    `python -m elite_status.main`
+    ```bash
+    # Entwicklung mit Auto-Reload
+    uvicorn elite_status.main:app --reload --host 0.0.0.0 --port 8000
+    
+    # Produktion mit Startskript (conda + .env)
+    ./start_backend.sh
+    
+    # Direkter Modulaufruf
+    python -m elite_status.main
+    ```
 
-    oder
+## API-Endpunkte
 
-    `uvicorn elite_status.main:app --reload --host 0.0.0.0 --port 8000`
+### Statusabfrage
+- `/api/v1/status` - Rohe Statusdaten aus Status.json
+- `/api/v1/status/parsed` - Wichtige Statusflags als boolesche Werte
+- `/api/v1/currentStarSystem` - Aktuelles Sternensystem
 
-## Aktuell gültige Endpunkte
-- `/api/v1/status`: Gibt den aktuellen Status zurück
-- `/api/v1/cargo`: Zeigt die Frachtdaten an (noch nicht implementiert!)
-- `/api/v1/currentStarSystem`: Gibt das aktuelle Sternensystem zurück
-- `/api/v1/status/parsed`: Gibt die wichtigsten Statusflags als boolesche Felder zurück
-- `/api/v1/action`: Führt Aktionen wie das Steuern des Fahrwerks aus (POST, z.B. `{ "action": "toggle_landing_gear" }`)
+### Datenmanagement
+- `/api/v1/cargo` - Frachtdaten aus Cargo.json
+
+### Aktionssteuerung
+- `/api/v1/action` - Spielaktionen ausführen (POST)
+  - Beispiel: `{"action": "toggle_landing_gear"}`
+- `/api/v1/command` - Sprachbefehle verarbeiten (POST)
+  - Beispiel: `{"command": "Fahrwerk ausfahren"}`
+
+### Zukünftige Erweiterungen
+- `/api/v1/market` - Marktdaten über Inara API (geplant)
+- `/api/v1/stations` - Stationssuche (geplant)
 
 ## Dateiüberwachung
 Die Anwendung überwacht die JSON-Dateien "Status.json" und "Cargo.json" im Savegame-Verzeichnis.
@@ -47,15 +72,30 @@ Die Anwendung überwacht die JSON-Dateien "Status.json" und "Cargo.json" im Save
 
 Weitere Dateien können in zukünftigen Erweiterungen folgen.
 
-## Module
+## Kernmodule
+
 ### status_fetcher.py
-- Enthält Funktionen zur Verarbeitung und Überwachung von Statusdateien
+- Real-time Dateiüberwachung mit watchdog
+- Status-Caching und API-Endpunkte
+- Action-System für Spielsteuerung
+- Authentifizierung und Autorisierung
 
 ### cargo_module.py
-- Bietet Endpunkte zur Verwaltung von Frachtdaten **(noch nicht implementiert!)**
+- Frachtdaten-Management und API-Endpunkte
+- Integration mit Elite Dangerous Cargo.json
 
 ### log_module.py
-- Implementiert Protokollierungsfunktionen und Endpunkte
+- Logging-System und protokollbezogene Endpunkte
+- Sternensystem-Tracking
+
+### command_parser.py
+- Verarbeitung von Sprachbefehlen und Textkommandos
+- Mapping deutscher Befehle zu Spielaktionen
+- Erweiterbare Befehlsbibliothek
+
+### utils.py
+- Plattformübergreifende Elite Dangerous Pfaderkennung
+- Hilfsfunktionen für Systemintegration
 
 ## API-Dokumentation
 Die implementierten Schnittstellen können über die URL `/api/v1/docs` (Swagger UI) eingesehen werden.

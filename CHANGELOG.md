@@ -37,6 +37,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # CHANGELOG.md
 
+## [1.1.0] - 2025-08-04
+
+### Hinzugefügt
+- **CLAUDE.md**: Umfassende Entwicklerdokumentation für AI-Assistenten mit Projektübersicht, Befehlen und Architektur
+- **Inara API Integration (Vorbereitung)**: 
+  - `docs/INARA.txt`: Dokumentation der Inara API für zukünftige Marktdaten-Integration
+  - Grundlage für Markt- und Stationssuche basierend auf Pilotenposition
+- **Serena MCP Server**: Konfiguration und Speicher-Dateien für erweiterte Entwicklungsunterstützung
+- **Erweiterte Dokumentation**: Überarbeitete README.md mit besserer Struktur und API-Übersicht
+
+### Entfernt
+- Veraltete GitHub Workflows und Konfigurationsdateien
+- `GEMINI.md` (ersetzt durch CLAUDE.md)
+
+### Geplant
+- `/api/v1/market` - Marktdaten über Inara API
+- `/api/v1/stations` - Stationssuche für Waren und Schiffskomponenten
+
 ## 2025-07-19
 - Erweiterung des Sprachbefehl-Mappings in `command_parser.py` um zahlreiche Elite Dangerous Funktionen (Fahrwerk, Lichter, Frachtluke, Hardpoints, Supercruise, FSD, Nachtmodus, Analysemodus, Statusabfragen etc.).
 - Neuer Endpoint `/api/v1/command` im Backend zur Verarbeitung von Textbefehlen (Sprachsteuerung).

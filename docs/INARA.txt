@@ -1,0 +1,78 @@
+# Inara API Documentation
+Quelle: https://inara.cz/elite/inara-api/
+
+## Was ist die Inara API
+
+Die Inara API ist eine Schnittstelle zum Aktualisieren, Senden oder Abrufen von Daten von/zu Inara. Sie ermöglicht es, verschiedene Tools außerhalb von Inara zu verwenden, um Daten hier zu aktualisieren (wie CMDR-Profile) oder Informationen von Inara abzurufen.
+
+## API-Schlüssel
+
+Die meisten Tools/Apps benötigen einen Inara API-Schlüssel. Sie können Ihren persönlichen API-Schlüssel in Ihren Einstellungen generieren: https://inara.cz/elite/cmdr-settings-api/
+
+## Verfügbare Anwendungen/Tools mit Inara API
+
+### E:D Market Connector
+- **Funktion**: Lädt Rohstoffmarkt- und andere Stationsdaten aus Elite: Dangerous für alle gängigen Online- und Offline-Trading-Tools
+- **Was es macht**: Aktualisiert CMDR-Profil (Credits, Fracht/Materialien, Logs, Schiffe, etc.) und Community Goals
+- **Erforderliche Version**: 5.6.0+
+- **Homepage**: https://github.com/EDCD/EDMarketConnector/wiki
+
+### EDDI
+- **Funktion**: Companion-Anwendung für Elite: Dangerous, die auf im Spiel auftretende Ereignisse reagiert
+- **Was es macht**: Aktualisiert CMDR-Profil (Credits, Fracht/Materialien, Logs, Schiffe, etc.) und Community Goals
+- **Erforderliche Version**: 4.0.2-b2+
+- **Homepage**: https://github.com/EDCD/EDDI
+
+### EDDiscovery
+- **Funktion**: Captain's Log und 2D/3D-Karte für Elite Dangerous Spieler
+- **Was es macht**: Aktualisiert CMDR-Profil (Credits, Fracht/Materialien, Logs, Schiffe, etc.) und Community Goals
+- **Erforderliche Version**: 16.0+
+- **Homepage**: https://github.com/EDDiscovery/EDDiscovery/
+
+### EDDLite
+- **Funktion**: Leichtgewichtige Version von EDDiscovery
+- **Was es macht**: Aktualisiert CMDR-Profil (Credits, Fracht/Materialien, Logs, Schiffe, etc.) und Community Goals
+- **Erforderliche Version**: 2.5.0+
+- **Homepage**: https://github.com/EDDiscovery/EDDLite/releases/
+
+## Haftungsausschluss
+
+Da die über diese API an Inara gesendeten Daten außerhalb der Kontrolle des Inara-Betreibers liegen, kann er nicht garantieren, dass sie korrekt sind. Diese Verantwortung liegt vollständig bei den Tool-/App-Entwicklern und Ihnen.
+
+**Wichtige Hinweise:**
+- CMDR-Profil-Updates werden normalerweise nicht in Echtzeit durchgeführt, sondern bei bestimmten Ereignissen wie Sitzungsstart, FSD-Sprüngen, Andocken an Stationen, etc.
+- Schiffsentfernung über API wird möglicherweise nicht immer durchgeführt, abhängig davon, ob die gameID des Schiffs zuvor bekannt war
+- In seltenen Fällen kann automatisch ein Schiff hinzugefügt werden, das bereits in Ihrer Flotte vorhanden ist
+
+## Potentielle Nutzung für EliteStatusCheck
+
+Für Ihre geplante Erweiterung der EliteStatusCheck API könnten folgende Inara-Funktionen relevant sein:
+
+1. **Marktdaten-Abfrage**: Lokalisierung von Märkten basierend auf Pilotenposition
+2. **Stationsinformationen**: Verfügbare Waren und Schiffskomponenten
+3. **Commodities-Suche**: Finden spezifischer Waren in nahegelegenen Systemen
+4. **Outfitting-Daten**: Schiffskomponenten und deren Verfügbarkeit
+
+## Weiterführende Dokumentation erforderlich
+
+HINWEIS: Die vollständige API-Dokumentation mit Endpunkten, Parametern und Beispielen ist sehr umfangreich. Für eine vollständige Integration sollten Sie:
+
+1. Die offizielle Inara API-Dokumentation direkt besuchen: https://inara.cz/elite/inara-api/
+2. Nach spezifischen Endpunkten für Marktdaten und Stationsinformationen suchen
+3. API-Beispiele und Authentifizierungsdetails studieren
+4. Rate Limits und Nutzungsbedingungen beachten
+
+## Integration in EliteStatusCheck
+
+Für die Integration in Ihr Projekt sollten Sie:
+
+1. Ein separates Modul für Inara API-Aufrufe erstellen (z.B. `inara_client.py`)
+2. API-Schlüssel über Umgebungsvariablen verwalten
+3. Rate Limiting implementieren
+4. Caching für häufig abgerufene Daten einrichten
+5. Fehlerbehandlung für API-Ausfälle implementieren
+
+Beispielhafte Endpunkte die relevant sein könnten:
+- `/api/v1/market/find` - Märkte in der Nähe finden
+- `/api/v1/stations/components` - Verfügbare Schiffskomponenten
+- `/api/v1/commodities/search` - Waren-Suchfunktion

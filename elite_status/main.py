@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from elite_status.status_fetcher import router as status_router
 from elite_status.cargo_module import router as cargo_router
 from elite_status.log_module import router as log_router
+from elite_status.inara_router import router as inara_router
 
 app = FastAPI(
     title="Elite Dangerous Status Check",
@@ -25,6 +26,7 @@ API_PREFIX = "/api/v1"
 app.include_router(status_router, prefix=f"{API_PREFIX}/status")
 app.include_router(cargo_router, prefix=f"{API_PREFIX}/cargo")
 app.include_router(log_router, prefix=f"{API_PREFIX}")
+app.include_router(inara_router, prefix=f"{API_PREFIX}")
 
 # CORS für das lokale Netzwerk erlauben
 origins = [
@@ -58,7 +60,8 @@ def root():
         "endpoints": [
             "/api/v1/status/",
             "/api/v1/cargo/",
-            "/api/v1/currentStarSystem"
+            "/api/v1/currentStarSystem",
+            "/api/v1/inara/"
         ]
     }
 
